@@ -1,7 +1,12 @@
-package com.example.blockgraming
+package com.example.blockgraming12
 
+import java.lang.StringBuilder
+import java.util.ArrayList
 
-
+/**
+ *
+ * @author aNNiMON
+ */
 class Lexer(private val input: String) {
     private val length: Int
     private val tokens: MutableList<Token>

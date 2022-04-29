@@ -1,4 +1,5 @@
-package com.example.blockgraming
+package com.example.blockgraming12
+
 
 
 
@@ -7,7 +8,7 @@ class Parser(private val tokens: List<Token>) {
     private val size: Int
     private var pos = 0
     fun parse(): List<Expression> {
-        val result: MutableList<Expression> = ArrayList<Expression>()
+        val result: MutableList<Expression> = ArrayList()
         while (!match(TokenType.EOF)) {
             result.add(expression())
         }
@@ -19,7 +20,7 @@ class Parser(private val tokens: List<Token>) {
     }
 
     private fun additive(): Expression {
-        var result: Expression = multiplicative()
+        var result = multiplicative()
         while (true) {
             if (match(TokenType.PLUS)) {
                 result = BinaryExpression('+', result, multiplicative())
@@ -35,9 +36,9 @@ class Parser(private val tokens: List<Token>) {
     }
 
     private fun multiplicative(): Expression {
-        var result: Expression = unary()
+        var result = unary()
         while (true) {
-            // 2 * 6 / 3
+
             if (match(TokenType.STAR)) {
                 result = BinaryExpression('*', result, unary())
                 continue
@@ -66,10 +67,10 @@ class Parser(private val tokens: List<Token>) {
             return NumberExpression(current.text!!.toDouble())
         }
         if (match(TokenType.HEX_NUMBER)) {
-            return NumberExpression(current.text!!.toLong(16))
+            return NumberExpression(current.text!!.toLong(16).toDouble())
         }
         if (match(TokenType.LPAREN)) {
-            val result: Expression = expression()
+            val result = expression()
             match(TokenType.RPAREN)
             return result
         }
