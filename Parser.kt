@@ -1,9 +1,5 @@
 package com.example.blockgraming12
 
-
-
-
-
 class Parser(private val tokens: List<Token>) {
     private val size: Int
     private var pos = 0

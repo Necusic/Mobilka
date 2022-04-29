@@ -1,7 +1,5 @@
 package com.example.blockgraming12
 
-
-
 class BinaryExpression(
     private val operation: Char,
     private val expr1: Expression,
