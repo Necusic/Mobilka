@@ -1,4 +1,4 @@
-package com.example.blockgraming12
+package com.example.blockgraming16
 
 
 
@@ -9,7 +9,7 @@ class Lexer(private val input: String) {
     fun tokenize(): List<Token> {
         while (pos < length) {
             val current = peek(0)
-            if (Character.isDigit(current)) tokenizeNumber() else if (current == '#') {
+            if (Character.isDigit(current)) tokenizeNumber() else if (Character.isLetter(current)) tokenizeWord() else if (current == '#') {
                 next()
                 tokenizeHexNumber()
             } else if (OPERATOR_CHARS.indexOf(current) != -1) {
@@ -25,7 +25,12 @@ class Lexer(private val input: String) {
     private fun tokenizeNumber() {
         val buffer = StringBuilder()
         var current = peek(0)
-        while (Character.isDigit(current)) {
+        while (true) {
+            if (current == '.') {
+                if (buffer.indexOf(".") != -1) throw RuntimeException("Invalid float number")
+            } else if (!Character.isDigit(current)) {
+                break
+            }
             buffer.append(current)
             current = next()
         }
@@ -46,6 +51,19 @@ class Lexer(private val input: String) {
         val position = OPERATOR_CHARS.indexOf(peek(0))
         addToken(OPERATOR_TOKENS[position])
         next()
+    }
+
+    private fun tokenizeWord() {
+        val buffer = StringBuilder()
+        var current = peek(0)
+        while (true) {
+            if (!Character.isLetterOrDigit(current) && current != '_' && current != '$') {
+                break
+            }
+            buffer.append(current)
+            current = next()
+        }
+        addToken(TokenType.WORD, buffer.toString())
     }
 
     private operator fun next(): Char {

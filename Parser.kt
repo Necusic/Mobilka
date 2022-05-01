@@ -1,4 +1,7 @@
-package com.example.blockgraming12
+package com.example.blockgraming16
+
+import java.lang.RuntimeException
+import java.util.ArrayList
 
 class Parser(private val tokens: List<Token>) {
     private val size: Int
@@ -34,7 +37,7 @@ class Parser(private val tokens: List<Token>) {
     private fun multiplicative(): Expression {
         var result = unary()
         while (true) {
-
+            // 2 * 6 / 3
             if (match(TokenType.STAR)) {
                 result = BinaryExpression('*', result, unary())
                 continue
@@ -64,6 +67,9 @@ class Parser(private val tokens: List<Token>) {
         }
         if (match(TokenType.HEX_NUMBER)) {
             return NumberExpression(current.text!!.toLong(16).toDouble())
+        }
+        if (match(TokenType.WORD)) {
+            return ConstantExpression(current.text!!)
         }
         if (match(TokenType.LPAREN)) {
             val result = expression()

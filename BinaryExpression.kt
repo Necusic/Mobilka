@@ -1,4 +1,6 @@
-package com.example.blockgraming12
+package com.example.blockgraming16
+
+
 
 class BinaryExpression(
     private val operation: Char,
@@ -16,6 +18,6 @@ class BinaryExpression(
     }
 
     override fun toString(): String {
-        return String.format("%s %c %s", expr1, operation, expr2)
+        return String.format("[%s %c %s]", expr1, operation, expr2)
     }
 }
