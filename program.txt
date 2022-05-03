@@ -1,0 +1,4 @@
+word = 3
+word1 = 1
+print word + word1
+
